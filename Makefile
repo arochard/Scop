@@ -9,7 +9,7 @@ SRC := $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
-		$(CC) -o $@ -fPIC -c $<
+		$(CC) -o $@  -c $<
 
 all: $(NAME)
 
