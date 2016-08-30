@@ -1,7 +1,9 @@
 NAME = scop
 
 CC = clang -Wall -Wextra -Werror
-LIBS = -L./minilibix/ -lmlx -framework OPENGL -framework AppKit
+LIB_PATH = Library/glfw/
+LOC_LIB = $(LIB_PATH)libGLEW.a $(LIB_PATH)libglfw3.a
+FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
 SRC_DIR = srcs
 
@@ -14,7 +16,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):$(OBJ)
-		$(CC) $(LIBS) -o $@ $^
+		$(CC) $(FRAMEWORKS) $(LOC_LIB) -o $@ $^
 		@echo "\033[0;32m$(NAME) : Compilation successful !! \033[0;32m"
 
 clean:

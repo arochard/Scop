@@ -15,7 +15,7 @@ static void		fillTab(char *line, t_data *data)
 	}
 }
 
-static void		readV(FILE *fp, t_data *data)
+static void		read(FILE *fp, t_data *data, char del)
 {
 	size_t		buffer;
 	char		*linePtr;
@@ -25,38 +25,32 @@ static void		readV(FILE *fp, t_data *data)
 	buffer = 128;
 	while (flag == 0 && getline(&linePtr, &buffer, fp) > 0)
 	{
-		if (linePtr[0] == 'v')
-			fillTab(linePtr, data);
-		if (linePtr[0] == 'f')
-			flag = 1;
+		if (del == 'v' linePtr[0] == del)
+			fillTabV(linePtr, data);
+		if (del == 'f' && linePtr[0] == del)
+			fillTabF(linePtr);
 	}
 }
 
-static int		readNbVLine(FILE *fp)
+static int		readNbLine(FILE *fp, char del)
 {
 	size_t		buffer;
 	char		*linePtr;
 	int			countLine;
-	int 		flag;
 
 	countLine = 0;
-	flag = 0;
 	buffer = 128;
-	while (flag == 0 && getline(&linePtr, &buffer, fp) > 0)
+	while (getline(&linePtr, &buffer, fp) > 0)
 	{
-		if (linePtr[0] == 'v')
+		if (linePtr[0] == del)
 			countLine++;
-		if (linePtr[0] == 'f')
-			flag = 1;
 	}
-	rewind(fp);
 	return (countLine);
 }
 
 void			parserObj(t_data *data)
 {
 	FILE		*fp;
-	int			sizeTab;
 
 	fp = fopen(data->fileObj, "r");
 	if (fp == NULL)
@@ -64,20 +58,13 @@ void			parserObj(t_data *data)
 		printf("Error read obj file\n");
 		exit(0);
 	}
-	sizeTab = readNbVLine(fp);
-	printf("Nb line: %d\n", sizeTab);
-	data->pointsTab = (float*) malloc(sizeof(float) * (sizeTab * 3));
+	data->size_tab = (readNbLine(floatp, 'v') * 3);
+	printf("Nb line: %d\n", data->size_tab);
+	data->pointsTab = (float*) malloc(sizeof(float) * data->size_tab);
 	fclose(fp);
 	fp = fopen(data->fileObj, "r");
 	readV(fp, data);
 	fclose(fp);
 
-	// //tmp
-	//  int i = 0;
-
-	// while (data->pointsTab[i])
-	// {
-	// 	printf("Tab[%f]\n", data->pointsTab[i]);
-	// 	i++;
-	// }
+	printf("OUHOOUH\n");
 }

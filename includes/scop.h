@@ -4,9 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <OpenGL/gl3.h>
-#include "../minilibix/mlx.h"
-#include "../minilibix/mlx_opengl.h"
+#include "glew.h"
+#include "glfw3.h"
 
 #define ESCAPE 53
 
@@ -14,16 +13,18 @@ typedef struct	s_data
 {
 	char		*fileObj;
 	char		*fileMtl;
-	void		*ptr_mlx;
-	void		*ptr_win;
+	GLFWwindow	*win_ptr;
 	GLuint		vbo;
 	GLuint		vao;
 	GLuint		vs;
 	GLuint		fs;
 	GLuint		shader_programme;
 	float		*pointsTab;
+	int			size_tab;
 	const char*	vertex_shader;
 	const char* fragment_shader;
+	GLuint 		*arrays_f;
+	GLsizei 	arrays_f_size;
 }				t_data;
 
 

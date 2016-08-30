@@ -2,17 +2,11 @@
 
 void			loading_buffer(t_data *data)
 {
-	float 		points[] = {
-		0.0f,  0.5f,  0.0f, 
-		0.5f, -0.5f,  0.0f, 
-		-0.5f, -0.5f,  0.0f
-	};
-
-	glGenBuffers(1, &data->vbo);
+	glGenBuffers(1, &(data->vbo));
 	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
-	glBufferData (GL_ARRAY_BUFFER, 9 * sizeof (float), points, GL_STATIC_DRAW);
+	glBufferData (GL_ARRAY_BUFFER, data->size_tab * sizeof (float), data->pointsTab, GL_STATIC_DRAW); // a changer
 
-	glGenVertexArrays (1, &data->vao);
+	glGenVertexArrays (1, &(data->vao));
 	glBindVertexArray (data->vao);
 	glEnableVertexAttribArray (0);
 	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
@@ -33,10 +27,10 @@ void			loading_buffer(t_data *data)
 		"}";
 
 	data->vs = glCreateShader (GL_VERTEX_SHADER);
-	glShaderSource (data->vs, 1, &data->vertex_shader, NULL);
+	glShaderSource (data->vs, 1, &(data->vertex_shader), NULL);
 	glCompileShader (data->vs);
 	data->fs = glCreateShader (GL_FRAGMENT_SHADER);
-	glShaderSource (data->fs, 1, &data->fragment_shader, NULL);
+	glShaderSource (data->fs, 1, &(data->fragment_shader), NULL);
 	glCompileShader (data->fs);
 
 	data->shader_programme = glCreateProgram ();
@@ -53,6 +47,7 @@ void			draw(t_data *data)
 	// draw points 0-3 from the currently bound VAO with current in-use shader
 	glDrawArrays (GL_TRIANGLES, 0, 3);
 	// update other events like input handling 
+	glfwPollEvents ();
 	// put the stuff we've been drawing onto the display
-	mlx_opengl_swap_buffers(data->ptr_win);
+	glfwSwapBuffers(data->win_ptr);
 }
