@@ -4,7 +4,7 @@ void			loading_buffer(t_data *data)
 {
 	glGenBuffers(1, &(data->vbo));
 	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
-	glBufferData (GL_ARRAY_BUFFER, data->size_tab * sizeof (float), data->pointsTab, GL_STATIC_DRAW); // a changer
+	//glBufferData (GL_ARRAY_BUFFER, data->size_tab_vertice * sizeof (float), data->pointsTab, GL_STATIC_DRAW); // a changer
 
 	glGenVertexArrays (1, &(data->vao));
 	glBindVertexArray (data->vao);
