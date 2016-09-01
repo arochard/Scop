@@ -16,8 +16,8 @@ int			main(int argc, char **argv)
 		exit(0);
 	}
 	parserObj(&data);
-	//loading_buffer(&data);
 	init_window(&data);
+	loading_buffer(&data);
 	while (!glfwWindowShouldClose (data.win_ptr))
 		draw(&data);
 	glfwTerminate();

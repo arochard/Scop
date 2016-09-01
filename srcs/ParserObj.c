@@ -84,8 +84,6 @@ static int		readNbLine(FILE *fp, char del)
 void			parserObj(t_data *data)
 {
 	FILE		*fp;
-	int			size_tab_vertice;
-	int			size_tab_indice;
 
 	fp = fopen(data->fileObj, "r");
 	if (fp == NULL)
@@ -93,24 +91,24 @@ void			parserObj(t_data *data)
 		printf("Error read obj file\n");
 		exit(0);
 	}
-	size_tab_vertice = readNbLine(fp, 'v') * 3;
-	size_tab_indice = readNbLine(fp, 'f') * 9;
+	data->size_tab_vertex = readNbLine(fp, 'v') * 3;
+	data->size_tab_indice = readNbLine(fp, 'f') * 9;
 	// tmp
-	printf("Nb tab V: %d\n", size_tab_vertice);
-	printf("nb ltab F: %d\n", size_tab_indice);
+	printf("Nb tab V: %d\n", data->size_tab_vertex);
+	printf("nb ltab F: %d\n", data->size_tab_indice);
 
-	data->vertex_tab = (float*) malloc(sizeof(float) * size_tab_vertice);
-	data->indice_tab = (unsigned short*) malloc(sizeof(unsigned short) * size_tab_indice);
+	data->vertex_tab = (float*) malloc(sizeof(float) * data->size_tab_vertex);
+	data->indice_tab = (unsigned short*) malloc(sizeof(unsigned short) * data->size_tab_indice);
 	fclose(fp);
 	fp = fopen(data->fileObj, "r");
 	read(fp, data);
 	fclose(fp);
 	//tmp
 	printf("OUHOOUH\n");
-	int i = 0;
-	while (data->indice_tab[i])
-	{
-		printf("f 1: %i 2: %i 3: %i\n", data->indice_tab[i], data->indice_tab[i + 1], data->indice_tab[i + 2]);
-		i += 3;
-	}	
+	// int i = 0;
+	// while (data->indice_tab[i])
+	// {
+	// 	printf("f 1: %i 2: %i 3: %i\n", data->indice_tab[i], data->indice_tab[i + 1], data->indice_tab[i + 2]);
+	// 	i += 3;
+	// }	
 }
