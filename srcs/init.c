@@ -1,21 +1,26 @@
 #include "../includes/scop.h"
 
-// static int		get_key(int keycode, void *param)
-// {
-// 	if (keycode == ESCAPE)
-// 		exit(0);
+void			read_shaders(const char **str, char *file)
+{
+	FILE		*fp;
+	long 		fsize;
+	char		*tmp;
 
-// 	param = param + 3;
-
-// 	return (0);
-// }
-
-// static int		expose_hook(t_data *data)
-// {
-// 	loading_buffer(data);
-// 	draw(data);
-// 	return (0);
-// }
+	fp = fopen(file, "r");
+	if (fp == NULL)
+	{
+		printf("Error read shader file\n");
+		exit(0);
+	}
+	fseek(fp, 0, SEEK_END);
+	fsize = ftell(fp);
+	rewind(fp);
+	tmp = (char*)malloc(sizeof(char) * (fsize + 1));
+	fread(tmp, 1, fsize, fp);
+	fclose(fp);
+	tmp[fsize] = 0;
+	*str = (const char*)tmp;
+}
 
 void			init_window(t_data *data)
 {

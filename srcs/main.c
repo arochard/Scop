@@ -15,6 +15,10 @@ int			main(int argc, char **argv)
 		printf("Usage: ./Scop [obj file] [mtl file]");
 		exit(0);
 	}
+	read_shaders(&data.vertex_shader, VS);
+	read_shaders(&data.fragment_shader, FS);
+	printf("%s\n", data.vertex_shader);
+	printf("%s\n", data.fragment_shader);
 	parserObj(&data);
 	init_window(&data);
 	loading_buffer(&data);
