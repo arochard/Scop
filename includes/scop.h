@@ -7,16 +7,8 @@
 #include "glew.h"
 #include "glfw3.h"
 
-#define VS 			"Shaders/VertexShader.vs"
-#define FS 			"Shaders/FragmentShader.fs"
-
-// typedef struct		s_faces
-// {
-// 	float			one[3];
-// 	float			two[3];
-// 	float			three[3];
-// 	struct s_faces	*next;
-// }					t_faces;
+#define 			VS "Shaders/VertexShader.vs"
+#define				FS "Shaders/FragmentShader.fs"
 
 typedef struct		s_data
 {
@@ -37,8 +29,15 @@ typedef struct		s_data
 	const char* 	fragment_shader;
 	GLuint 			*arrays_f;
 	GLsizei 		arrays_f_size;
-	//t_faces			*faces;
+	GLfloat			*modelMatrix;
+	GLfloat			*viewMatrix;
+	GLfloat			*projectionMatrix;
 }					t_data;
+
+GLfloat				*g_modelMatrix;
+GLfloat				*g_viewMatrix;
+GLfloat				*g_projectionMatrix;
+
 
 
 void 				key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -47,6 +46,6 @@ void				read_shaders(const char **str, char *file);
 void				init_window(t_data *data);
 void				loading_buffer(t_data *data);
 void				draw(t_data *data);
-void				fill_list(t_data *data, int	f[3]);
+void				init_matrix();
 
 #endif

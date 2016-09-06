@@ -21,7 +21,9 @@ int			main(int argc, char **argv)
 	printf("%s\n", data.fragment_shader);
 	parserObj(&data);
 	init_window(&data);
+	init_matrix();
 	loading_buffer(&data);
+	glfwSetKeyCallback(data.win_ptr, key_callback);
 	while (!glfwWindowShouldClose (data.win_ptr))
 		draw(&data);
 	glfwTerminate();

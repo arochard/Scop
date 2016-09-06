@@ -1,5 +1,27 @@
 #include "../includes/scop.h"
 
+void			init_matrix()
+{
+	GLfloat		entityMatrix[] = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+
+	g_modelMatrix = entityMatrix;
+	g_viewMatrix = entityMatrix;
+	g_projectionMatrix = entityMatrix;
+
+	printf("%p\n", &entityMatrix);
+	printf("%p\n", g_modelMatrix);
+
+	// int i = 0;
+	// while (i < 16)
+	// {
+	// 	printf("%f ", g_data->modelMatrix[i]);
+	// 	printf("%f ", g_data->modelMatrix[i+1]);
+	// 	printf("%f ", g_data->modelMatrix[i+2]);
+	// 	printf("%f\n", g_data->modelMatrix[i+3]);
+	// 	i = i + 4;
+	// }
+}
+
 void			read_shaders(const char **str, char *file)
 {
 	FILE		*fp;

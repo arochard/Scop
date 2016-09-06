@@ -1,5 +1,30 @@
 #include "../includes/scop.h"
 
+static void		sendMatrix(t_data *data)
+{
+	GLuint		location;
+
+	// int i = 0;
+	// while (i < 16)
+	// {
+	// 	printf("%f ", g_modelMatrix[i]);
+	// 	printf("%f ", g_modelMatrix[i+1]);
+	// 	printf("%f ", g_modelMatrix[i+2]);
+	// 	printf("%f\n", g_modelMatrix[i+3]);
+	// 	i = i + 4;
+	// }
+
+	location = glGetUniformLocation(data->shader_programme, "modelMatrix");
+	if (!location)
+		glUniformMatrix4fv(location, 1, GL_FALSE, g_modelMatrix);
+	location = glGetUniformLocation(data->shader_programme, "viewMatrix");
+	if (!location)
+		glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
+	location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
+	if (!location)
+		glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
+}
+
 void			loading_buffer(t_data *data)
 {
 	glGenBuffers(1, &(data->vbo));
@@ -40,6 +65,7 @@ void			draw(t_data *data)
 	glfwSetKeyCallback(data->win_ptr, key_callback);
 	// update other events like input handling
 	glfwPollEvents ();
+	sendMatrix(data);
 	// put the stuff we've been drawing onto the display
 	glfwSwapBuffers(data->win_ptr);
 }
