@@ -21,7 +21,7 @@ typedef struct		s_data
 	GLuint			fs;
 	GLuint			shader_programme;
 	GLuint			indice_buffer;
-	unsigned short	*indice_tab;
+	GLushort		*indice_tab;
 	float			*vertex_tab;
 	int				size_tab_indice;
 	int 			size_tab_vertex;
@@ -46,6 +46,4 @@ void				read_shaders(const char **str, char *file);
 void				init_window(t_data *data);
 void				loading_buffer(t_data *data);
 void				draw(t_data *data);
-void				init_matrix();
-
 #endif

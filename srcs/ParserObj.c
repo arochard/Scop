@@ -92,23 +92,12 @@ void			parserObj(t_data *data)
 		exit(0);
 	}
 	data->size_tab_vertex = readNbLine(fp, 'v') * 3;
-	data->size_tab_indice = readNbLine(fp, 'f') * 9;
-	// tmp
-	printf("Nb tab V: %d\n", data->size_tab_vertex);
-	printf("nb ltab F: %d\n", data->size_tab_indice);
-
+	data->size_tab_indice = readNbLine(fp, 'f') * 3;
+	printf("size : %d\n", data->size_tab_indice);
 	data->vertex_tab = (float*) malloc(sizeof(float) * data->size_tab_vertex);
-	data->indice_tab = (unsigned short*) malloc(sizeof(unsigned short) * data->size_tab_indice);
+	data->indice_tab = (GLushort*) malloc(sizeof(GLushort) * data->size_tab_indice);
 	fclose(fp);
 	fp = fopen(data->fileObj, "r");
 	read(fp, data);
 	fclose(fp);
-	//tmp
-	printf("OUHOOUH\n");
-	// int i = 0;
-	// while (data->indice_tab[i])
-	// {
-	// 	printf("f 1: %i 2: %i 3: %i\n", data->indice_tab[i], data->indice_tab[i + 1], data->indice_tab[i + 2]);
-	// 	i += 3;
-	// }	
 }

@@ -20,11 +20,8 @@ int			main(int argc, char **argv)
 	}
 	read_shaders(&data.vertex_shader, VS);
 	read_shaders(&data.fragment_shader, FS);
-	printf("%s\n", data.vertex_shader);
-	printf("%s\n", data.fragment_shader);
 	parserObj(&data);
 	init_window(&data);
-	init_matrix();
 	loading_buffer(&data);
 	glfwSetKeyCallback(data.win_ptr, key_callback);
 	while (!glfwWindowShouldClose (data.win_ptr))
