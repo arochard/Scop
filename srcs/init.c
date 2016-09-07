@@ -2,14 +2,14 @@
 
 void			init_matrix()
 {
-	GLfloat		entityMatrix[] = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+	// GLfloat		entityMatrix[] = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
-	g_modelMatrix = entityMatrix;
-	g_viewMatrix = entityMatrix;
-	g_projectionMatrix = entityMatrix;
+	// g_modelMatrix = entityMatrix;
+	// g_viewMatrix = entityMatrix;
+	// g_projectionMatrix = entityMatrix;
 
-	printf("%p\n", &entityMatrix);
-	printf("%p\n", g_modelMatrix);
+	// printf("%p\n", &entityMatrix);
+	// printf("%p\n", g_modelMatrix);
 
 	// int i = 0;
 	// while (i < 16)

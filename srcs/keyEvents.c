@@ -2,20 +2,20 @@
 
 static void		translation_right()
 {
-	// int i = 0;
-	// while (i < 16)
-	// {
-	// 	printf("%f/", g_data->modelMatrix[i]);
-	// 	printf("%f/", g_data->modelMatrix[i+1]);
-	// 	printf("%f/", g_data->modelMatrix[i+2]);
-	// 	printf("%f\n", g_data->modelMatrix[i+3]);
-	// 	i = i + 4;
-	// }
-	g_modelMatrix[3] = 2.0;
+	int i = 0;
+	while (i < 16)
+	{
+		printf("%f/", g_modelMatrix[i]);
+		printf("%f/", g_modelMatrix[i+1]);
+		printf("%f/", g_modelMatrix[i+2]);
+		printf("%f\n", g_modelMatrix[i+3]);
+		i = i + 4;
+	}
+	g_modelMatrix[3] += 0.3;
 }
 static void		translation_left()
 {
-	
+	g_modelMatrix[3] -= 0.3;
 }
 static void		translation_up()
 {

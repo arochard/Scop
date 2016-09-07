@@ -13,16 +13,34 @@ static void		sendMatrix(t_data *data)
 	// 	printf("%f\n", g_modelMatrix[i+3]);
 	// 	i = i + 4;
 	// }
+	// i = 0;
+	// while (i < 16)
+	// {
+	// 	printf("%f ", g_viewMatrix[i]);
+	// 	printf("%f ", g_viewMatrix[i+1]);
+	// 	printf("%f ", g_viewMatrix[i+2]);
+	// 	printf("%f\n", g_viewMatrix[i+3]);
+	// 	i = i + 4;
+	// }
+	// i = 0;
+	// while (i < 16)
+	// {
+	// 	printf("%f ", g_projectionMatrix[i]);
+	// 	printf("%f ", g_projectionMatrix[i+1]);
+	// 	printf("%f ", g_projectionMatrix[i+2]);
+	// 	printf("%f\n", g_projectionMatrix[i+3]);
+	// 	i = i + 4;
+	// }
 
 	location = glGetUniformLocation(data->shader_programme, "modelMatrix");
 	if (!location)
 		glUniformMatrix4fv(location, 1, GL_FALSE, g_modelMatrix);
-	location = glGetUniformLocation(data->shader_programme, "viewMatrix");
-	if (!location)
-		glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
-	location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
-	if (!location)
-		glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
+	// location = glGetUniformLocation(data->shader_programme, "viewMatrix");
+	// if (!location)
+	// 	glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
+	// location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
+	// if (!location)
+	// 	glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
 }
 
 void			loading_buffer(t_data *data)

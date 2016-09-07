@@ -34,9 +34,9 @@ typedef struct		s_data
 	GLfloat			*projectionMatrix;
 }					t_data;
 
-GLfloat				*g_modelMatrix;
-GLfloat				*g_viewMatrix;
-GLfloat				*g_projectionMatrix;
+extern GLfloat		g_modelMatrix[];
+extern GLfloat		g_viewMatrix[];
+extern GLfloat		g_projectionMatrix[];
 
 
 
