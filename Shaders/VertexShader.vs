@@ -10,6 +10,9 @@ uniform mat4	viewMatrix;
 
 void main ()
 {
+	//vec4 	eyepos;
 	//gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(VertexPosition, 1.0);
+	// eyepos = modelMatrix * vec4(VertexPosition, 1.0);
+	//gl_Position = vec4(eyepos.xy, -eyepos.z, eyepos.w);
 	gl_Position = modelMatrix * vec4(VertexPosition, 1.0);
 }

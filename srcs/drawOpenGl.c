@@ -3,7 +3,13 @@
 static void		sendMatrix(t_data *data)
 {
 	GLuint		location;
+	static double		angle = 0.0;
 
+	g_modelMatrix[0] = cos(angle);
+	g_modelMatrix[8] = -sin(angle);
+	g_modelMatrix[2] = sin(angle);
+	g_modelMatrix[10] = cos(angle);
+	angle += 0.02;
 	location = glGetUniformLocation(data->shader_programme, "modelMatrix");
 	if (!location)
 		glUniformMatrix4fv(location, 1, GL_FALSE, g_modelMatrix);
@@ -51,16 +57,16 @@ void			draw(t_data *data)
 	//int size;
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram (data->shader_programme);
-	glBindVertexArray (data->vao);
+	//glBindVertexArray (data->vao);
 
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data->indice_buffer);
 
 	//glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
 
-	glDrawElements(GL_TRIANGLES, data->size_tab_indice, GL_UNSIGNED_SHORT, (void*)0);
 	glfwSetKeyCallback(data->win_ptr, key_callback);
 	// update other events like input handling
 	glfwPollEvents ();
+	glDrawElements(GL_TRIANGLES, data->size_tab_indice, GL_UNSIGNED_SHORT, (void*)0);
 	sendMatrix(data);
 	// put the stuff we've been drawing onto the display
 	glfwSwapBuffers(data->win_ptr);

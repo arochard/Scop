@@ -2,20 +2,20 @@
 
 static void		translation_right()
 {
-	int i = 0;
-	while (i < 16)
-	{
-		printf("%f/", g_modelMatrix[i]);
-		printf("%f/", g_modelMatrix[i+1]);
-		printf("%f/", g_modelMatrix[i+2]);
-		printf("%f\n", g_modelMatrix[i+3]);
-		i = i + 4;
-	}
-	g_modelMatrix[3] += 0.3;
+	// int i = 0;
+	// while (i < 16)
+	// {
+	// 	printf("%f/", g_modelMatrix[i]);
+	// 	printf("%f/", g_modelMatrix[i+1]);
+	// 	printf("%f/", g_modelMatrix[i+2]);
+	// 	printf("%f\n", g_modelMatrix[i+3]);
+	// 	i = i + 4;
+	// }
+	g_modelMatrix[12] += 0.05;
 }
 static void		translation_left()
 {
-	g_modelMatrix[3] -= 0.3;
+	g_modelMatrix[12] -= 0.05;
 }
 static void		translation_up()
 {
@@ -28,16 +28,16 @@ static void		translation_down()
 
 static void		scale_up()
 {
-	g_modelMatrix[0] *= 0.3;
-	g_modelMatrix[5] *= 0.3;
-	g_modelMatrix[10] *= 0.3;
+	g_modelMatrix[0] *= 1.02;
+	g_modelMatrix[5] *= 1.02;
+	g_modelMatrix[10] *= 1.02;
 }
 
 static void		scale_down()
 {
-	g_modelMatrix[0] /= 0.3;
-	g_modelMatrix[5] /= 0.3;
-	g_modelMatrix[10] /= 0.3;
+	g_modelMatrix[0] /= 1.02;
+	g_modelMatrix[5] /= 1.02;
+	g_modelMatrix[10] /= 1.02;
 }
 
 void 			key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

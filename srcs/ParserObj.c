@@ -7,6 +7,7 @@ static void			fillTabF(char *line, t_data *data)
 	static int		index = 0;
 
 	read[0] = sscanf(line, "%c %hd %hd %hd %hd", &letter, &(data->indice_tab[index]), &(data->indice_tab[index + 1]), &(data->indice_tab[index + 2]), &read[1]);
+	//printf("f %hd %hd %hd\n", data->indice_tab[index], data->indice_tab[index+1], data->indice_tab[index+2]);
 	index += 3;
 	if (read[0] < 4 || letter != 'f')
 	{
@@ -18,6 +19,7 @@ static void			fillTabF(char *line, t_data *data)
 		data->indice_tab[index] = data->indice_tab[index - 3];
 		data->indice_tab[index + 1] = data->indice_tab[index - 1];
 		data->indice_tab[index + 2] = read[1];
+		//printf("f %hd %hd %hd\n", data->indice_tab[index], data->indice_tab[index+1], data->indice_tab[index+2]);
 		index += 3;
 	}
 }
@@ -78,6 +80,7 @@ static int		readNbLine(FILE *fp, char del)
 		}
 	}
 	rewind(fp);
+	printf("count line%d\n", countLine);
 	return (countLine);
 }
 
@@ -93,11 +96,19 @@ void			parserObj(t_data *data)
 	}
 	data->size_tab_vertex = readNbLine(fp, 'v') * 3;
 	data->size_tab_indice = readNbLine(fp, 'f') * 3;
-	printf("size : %d\n", data->size_tab_indice);
+	printf("size vertex: %d\n", data->size_tab_vertex);
+	printf("size indice: %d\n", data->size_tab_indice);
 	data->vertex_tab = (float*) malloc(sizeof(float) * data->size_tab_vertex);
 	data->indice_tab = (GLushort*) malloc(sizeof(GLushort) * data->size_tab_indice);
 	fclose(fp);
 	fp = fopen(data->fileObj, "r");
 	read(fp, data);
 	fclose(fp);
+	int i =0;
+	while (data->indice_tab[i])
+	{
+		printf("%hd\n", data->indice_tab[i]);
+		i++;
+	}
+	normalize(data);
 }

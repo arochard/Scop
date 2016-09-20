@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "glew.h"
 #include "glfw3.h"
 
@@ -27,8 +28,6 @@ typedef struct		s_data
 	int 			size_tab_vertex;
 	const char*		vertex_shader;
 	const char* 	fragment_shader;
-	GLuint 			*arrays_f;
-	GLsizei 		arrays_f_size;
 	GLfloat			*modelMatrix;
 	GLfloat			*viewMatrix;
 	GLfloat			*projectionMatrix;
@@ -46,4 +45,5 @@ void				read_shaders(const char **str, char *file);
 void				init_window(t_data *data);
 void				loading_buffer(t_data *data);
 void				draw(t_data *data);
+void				normalize(t_data *data);
 #endif
