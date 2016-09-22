@@ -23,7 +23,7 @@ typedef struct		s_data
 	GLuint			shader_programme;
 	GLuint			indice_buffer;
 	GLushort		*indice_tab;
-	float			*vertex_tab;
+	GLfloat			*vertex_tab;
 	int				size_tab_indice;
 	int 			size_tab_vertex;
 	const char*		vertex_shader;

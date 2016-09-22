@@ -33,6 +33,7 @@ void			init_window(t_data *data)
 	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_DEPTH_BITS, 24);
 	data->win_ptr = glfwCreateWindow (1920, 1080, "Scop", NULL, NULL);
 	if (!data->win_ptr)
 	{
