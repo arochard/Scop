@@ -16,9 +16,9 @@ static void		sendMatrix(t_data *data)
 	location = glGetUniformLocation(data->shader_programme, "viewMatrix");
 	if (!location)
 		glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
-	// location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
-	// if (!location)
-	// 	glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
+	location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
+	if (!location)
+		glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
 }
 
 void			loading_buffer(t_data *data)
@@ -37,8 +37,8 @@ void			loading_buffer(t_data *data)
 	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
 	glBufferData (GL_ARRAY_BUFFER, data->size_tab_vertex * sizeof (float), data->vertex_tab, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	//glEnableClientState(GL_VERTEX_ARRAY);
 
 	glGenBuffers(1, &(data->indice_buffer));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data->indice_buffer);
@@ -60,15 +60,19 @@ void			loading_buffer(t_data *data)
 	data->shader_programme = glCreateProgram ();
 	glAttachShader (data->shader_programme, data->fs);
 	glAttachShader (data->shader_programme, data->vs);
+
+	glDeleteShader(data->vs);
+	glDeleteShader(data->fs);
+
 	glLinkProgram (data->shader_programme);
+	glUseProgram (data->shader_programme);
 }
 
 void			draw(t_data *data)
 {
 	//int size;
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glUseProgram (data->shader_programme);
-	sendMatrix(data);
+	//sendMatrix(data);
 
 	//glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
 
@@ -79,7 +83,8 @@ void			draw(t_data *data)
 	glBindVertexArray (data->vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data->indice_buffer);
 	glDrawElements(GL_TRIANGLES, data->size_tab_indice, GL_UNSIGNED_SHORT, (void*)0);
-	//sendMatrix(data);
+	glBindVertexArray(0);
+	sendMatrix(data);
 	// put the stuff we've been drawing onto the display
 	glfwSwapBuffers(data->win_ptr);
 }

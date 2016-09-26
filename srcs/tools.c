@@ -28,8 +28,16 @@ void				normalize(t_data *data)
 	i = 0;
 	while (data->vertex_tab[i])
 	{
-		data->vertex_tab[i] = (data->vertex_tab[i] - ((max + min) / 2)) / ((max - min) / 2);
+		//data->vertex_tab[i] = (data->vertex_tab[i] - ((max + min) / 2)) / ((max - min) / 2);
+		data->vertex_tab[i] = (((data->vertex_tab[i] - min)) * (1 - -1) / (max - min)) + min;
+		//(((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
 		//printf("Vertex %f\n", data->vertex_tab[i]);
+		i++;
+	}
+	i = 0;
+	while (data->indice_tab[i])
+	{
+		data->indice_tab[i] -= 1;
 		i++;
 	}
 }

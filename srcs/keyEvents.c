@@ -28,16 +28,16 @@ static void		translation_down()
 
 static void		scale_up()
 {
-	g_modelMatrix[0] *= 1.02;
-	g_modelMatrix[5] *= 1.02;
-	g_modelMatrix[10] *= 1.02;
+	g_modelMatrix[0] *= 0.02 * 1.78;
+	g_modelMatrix[5] *= 0.02 * 1.78;
+	g_modelMatrix[10] *= 0.02 * 1.78;
 }
 
 static void		scale_down()
 {
-	g_modelMatrix[0] /= 1.02;
-	g_modelMatrix[5] /= 1.02;
-	g_modelMatrix[10] /= 1.02;
+	g_modelMatrix[0] /= 0.02 * 1.78;
+	g_modelMatrix[5] /= 0.02 * 1.78;
+	g_modelMatrix[10] /= 0.02 * 1.78;
 }
 
 void 			key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

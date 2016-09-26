@@ -1,5 +1,30 @@
 #include "../includes/scop.h"
 
+static void		projectionMatrix()
+{
+	float 		fov;
+	float 		far;
+	float 		near;
+	float 		right, top;
+
+	fov = 45.0f * M_PI / 180.0;
+	printf("FOV %f\n", (1.0 / tan(fov)));
+	far = 10.0;
+	near = 0.5;
+	right = 1.0;
+	top = 1.0;
+
+	g_projectionMatrix[0] = 1.0 / tan(fov);
+	g_projectionMatrix[5] = (1920/1080) / tan(fov);
+	g_projectionMatrix[10] = (far + near) / (far - near);
+	g_projectionMatrix[14] = -2.0 * far * near / (far - near);
+	g_projectionMatrix[11] = 1;
+	g_projectionMatrix[15] = 0;
+
+	printf("0 : %f , 5 : %f , 10 : %f , 11 : %f\n", g_projectionMatrix[0], g_projectionMatrix[5], g_projectionMatrix[10], g_projectionMatrix[11]);
+
+}
+
 void			read_shaders(const char **str, char *file)
 {
 	FILE		*fp;
@@ -44,4 +69,5 @@ void			init_window(t_data *data)
 	glfwMakeContextCurrent (data->win_ptr);
 	glewExperimental = GL_TRUE;
 	glewInit ();
+	projectionMatrix();
 }
