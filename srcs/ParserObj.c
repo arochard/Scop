@@ -7,7 +7,6 @@ static void			fillTabF(char *line, t_data *data)
 	static int		index = 0;
 
 	read[0] = sscanf(line, "%c %hd %hd %hd %hd", &letter, &(data->indice_tab[index]), &(data->indice_tab[index + 1]), &(data->indice_tab[index + 2]), &read[1]);
-	//printf("f %hd %hd %hd\n", data->indice_tab[index], data->indice_tab[index+1], data->indice_tab[index+2]);
 	index += 3;
 	if (read[0] < 4 || letter != 'f')
 	{
@@ -19,7 +18,6 @@ static void			fillTabF(char *line, t_data *data)
 		data->indice_tab[index] = data->indice_tab[index - 3];
 		data->indice_tab[index + 1] = data->indice_tab[index - 1];
 		data->indice_tab[index + 2] = read[1];
-		//printf("f %hd %hd %hd\n", data->indice_tab[index], data->indice_tab[index+1], data->indice_tab[index+2]);
 		index += 3;
 	}
 }
@@ -104,11 +102,5 @@ void			parserObj(t_data *data)
 	fp = fopen(data->fileObj, "r");
 	read(fp, data);
 	fclose(fp);
-	int i =0;
-	while (data->indice_tab[i])
-	{
-		printf("%hd\n", data->indice_tab[i]);
-		i++;
-	}
-	normalize(data);
+	scaleRange(data);
 }

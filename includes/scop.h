@@ -13,6 +13,9 @@
 
 typedef struct		s_data
 {
+	int				width;
+	int 			height;
+	float			ratio;
 	char			*fileObj;
 	char			*fileMtl;
 	GLFWwindow		*win_ptr;
@@ -45,5 +48,6 @@ void				read_shaders(const char **str, char *file);
 void				init_window(t_data *data);
 void				loading_buffer(t_data *data);
 void				draw(t_data *data);
-void				normalize(t_data *data);
+void				scaleRange(t_data *data);
+float				*normalise(float v[3]);
 #endif

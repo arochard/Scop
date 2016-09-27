@@ -15,7 +15,14 @@ static void			min_max(t_data *data, float *min, float *max)
 	}
 }
 
-void				normalize(t_data *data)
+//tmp funct
+
+static float		length(float v[3])
+{
+	return (sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]));
+}
+
+void				scaleRange(t_data *data)
 {
 	int				i;
 	float			max;
@@ -24,14 +31,10 @@ void				normalize(t_data *data)
 	min = 0.0f;
 	max = 0.0f;
 	min_max(data, &min, &max);
-	//printf("min : %f    max : %f\n", min, max);
 	i = 0;
 	while (data->vertex_tab[i])
 	{
-		//data->vertex_tab[i] = (data->vertex_tab[i] - ((max + min) / 2)) / ((max - min) / 2);
 		data->vertex_tab[i] = (((data->vertex_tab[i] - min)) * (1 - -1) / (max - min)) + min;
-		//(((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
-		//printf("Vertex %f\n", data->vertex_tab[i]);
 		i++;
 	}
 	i = 0;
@@ -40,4 +43,27 @@ void				normalize(t_data *data)
 		data->indice_tab[i] -= 1;
 		i++;
 	}
+}
+
+// tmp funct
+float				*normalise(float v[3])
+{
+	float 			l;
+	float			*vb;
+
+	vb = (float*)malloc(sizeof(float) * 3);
+
+	l = length(v);
+
+	if (l == 0.0f)
+	{
+		v[0] = 0.0f;
+		v[1] = 0.0f;
+		v[2] = 0.0f;
+		return (v);
+	}
+	vb[0] = v[0] / l;
+	vb[1] = v[1] / l;
+	vb[2] = v[2] / l;
+	return (vb);
 }
