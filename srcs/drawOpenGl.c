@@ -13,12 +13,9 @@ static void		sendMatrix(t_data *data)
 	location = glGetUniformLocation(data->shader_programme, "modelMatrix");
 	if (!location)
 		glUniformMatrix4fv(location, 1, GL_FALSE, g_modelMatrix);
-	location = glGetUniformLocation(data->shader_programme, "viewMatrix");
-	if (!location)
-		glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
-	location = glGetUniformLocation(data->shader_programme, "projectionMatrix");
-	if (!location)
-		glUniformMatrix4fv(location, 1, GL_FALSE, g_projectionMatrix);
+	// location = glGetUniformLocation(data->shader_programme, "viewMatrix");
+	// if (!location)
+	// 	glUniformMatrix4fv(location, 1, GL_FALSE, g_viewMatrix);
 }
 
 void			loading_buffer(t_data *data)

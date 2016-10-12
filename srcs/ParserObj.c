@@ -103,4 +103,10 @@ void			parserObj(t_data *data)
 	read(fp, data);
 	fclose(fp);
 	scaleRange(data);
+	int i = 0;
+	while (data->vertex_tab[i])
+	{
+		printf("%f\n", data->vertex_tab[i]);
+		i++;
+	}
 }

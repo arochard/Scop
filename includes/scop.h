@@ -37,8 +37,7 @@ typedef struct		s_data
 }					t_data;
 
 extern GLfloat		g_modelMatrix[];
-extern GLfloat		g_viewMatrix[];
-extern GLfloat		g_projectionMatrix[];
+//extern GLfloat		g_viewMatrix[];
 
 
 
