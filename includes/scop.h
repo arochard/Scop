@@ -34,7 +34,19 @@ typedef struct		s_data
 	GLfloat			*modelMatrix;
 	GLfloat			*viewMatrix;
 	GLfloat			*projectionMatrix;
+	GLuint			texture;
 }					t_data;
+
+typedef struct 		s_bmp
+{
+	char		header[54];
+	int			dataPos;
+	int			width;
+	int			height;
+	int 		imgSize;
+	char		*data;
+	FILE 		*fp;
+}				t_bmp;
 
 extern GLfloat		g_modelMatrix[];
 //extern GLfloat		g_viewMatrix[];
@@ -49,4 +61,5 @@ void				loading_buffer(t_data *data);
 void				draw(t_data *data);
 void				scaleRange(t_data *data);
 float				*normalise(float v[3]);
+GLuint				load_bmp(char *path);
 #endif

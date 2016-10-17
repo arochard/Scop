@@ -46,6 +46,7 @@ void			loading_buffer(t_data *data)
 	glDeleteShader(data->fs);
 	glLinkProgram (data->shader_programme);
 	glUseProgram (data->shader_programme);
+	data->texture = load_bmp("../texture/pony.bmp");
 }
 
 void			draw(t_data *data)
