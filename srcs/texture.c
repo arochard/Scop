@@ -1,4 +1,5 @@
 #include "../includes/scop.h"
+#include <errno.h>
 
 static GLuint	create_texture(t_bmp *bmp)
 {
@@ -12,14 +13,14 @@ static GLuint	create_texture(t_bmp *bmp)
 	return(texture);
 }
 
-GLuint			load_bmp(char *path)
+GLuint			load_bmp(const char *path)
 {
 	t_bmp		bmp;
 
 	bmp.fp = fopen(path, "rb");
-	if (!bmp.fp)
+	if (bmp.fp == NULL)
 	{
-		printf("%s : Error BMP file: image could not be opened\n", path);
+		printf("%s : Error BMP file: %s\n", path, strerror(errno));
 		return(0);
 	}
 	if (fread(bmp.header, 1, 54, bmp.fp) != 54)

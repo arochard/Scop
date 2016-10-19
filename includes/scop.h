@@ -61,5 +61,5 @@ void				loading_buffer(t_data *data);
 void				draw(t_data *data);
 void				scaleRange(t_data *data);
 float				*normalise(float v[3]);
-GLuint				load_bmp(char *path);
+GLuint				load_bmp(const char *path);
 #endif
