@@ -1,8 +1,10 @@
 #version 400
 
-layout (location = 0) in vec3 VertexPosition;
+in vec3 position;
+in vec3 color;
 
 out vec2 texCoord;
+out vec3 Color;
 
 uniform mat4	modelMatrix;
 
@@ -18,7 +20,8 @@ mat4 perspective(float angle_of_view, float aspect_ratio, float z_near, float z_
 
 void main ()
 {	
-	vec4 eyepos = perspective(radians(45), 1920/1080, 0, 100)  * modelMatrix * vec4(VertexPosition, 1.0);
+	vec4 eyepos = perspective(radians(45), 1920/1080, 0, 100)  * modelMatrix * vec4(position, 1.0);
 	gl_Position = vec4(eyepos.xy, -eyepos.z, eyepos.w);
-	texCoord = VertexPosition.xy;
+	texCoord = position.xy;
+	Color = color;
 }

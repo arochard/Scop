@@ -30,20 +30,12 @@ void _print_shader_info_log(GLuint shader_index) {
 void			loading_buffer(t_data *data)
 {
 	GLuint 		location;
+	int			floatSize = 4;
+	int 		posAttrib;
+	int			colAttrib;
+	GLintptr	color_pos;
 
-	glGenVertexArrays (1, &(data->vao));
-	glBindVertexArray (data->vao);
-	glGenBuffers(1, &(data->vbo));
-	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
-	glBufferData (GL_ARRAY_BUFFER, data->size_tab_vertex * sizeof (float), data->vertex_tab, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glGenBuffers(1, &(data->indice_buffer));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, data->indice_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, data->size_tab_indice * sizeof(GLushort), data->indice_tab, GL_STATIC_DRAW);
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 	data->vs = glCreateShader (GL_VERTEX_SHADER);
 	glShaderSource (data->vs, 1, &(data->vertex_shader), NULL);
 	glCompileShader (data->vs);
@@ -67,15 +59,42 @@ void			loading_buffer(t_data *data)
 	glDeleteShader(data->fs);
 	glLinkProgram (data->shader_programme);
 	glUseProgram (data->shader_programme);
+
+
+
+	glGenVertexArrays (1, &(data->vao));
+	glBindVertexArray (data->vao);
+
+	glGenBuffers(1, &(data->vbo));
+	glBindBuffer (GL_ARRAY_BUFFER, data->vbo);
+	glBufferData (GL_ARRAY_BUFFER, data->size_tab_indice * sizeof (GLfloat), data->final_buffer_tab, GL_STATIC_DRAW);
+
+
+
+	posAttrib = glGetAttribLocation(data->shader_programme, "position");
+	glEnableVertexAttribArray(posAttrib);
+	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * floatSize, 0);
+
+	colAttrib = glGetAttribLocation(data->shader_programme, "color");
+	glEnableVertexAttribArray(colAttrib);
+	color_pos = 3 * floatSize;
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6 * floatSize, (GLvoid*)color_pos);
+
+	//glBindVertexArray(0);
+
+
+
+
+
 	data->texture = load_bmp("/Users/arochard/goinfre/scop/texture/pony"); //changer chemin en relatif
 	location = glGetUniformLocation(data->shader_programme, "myTexture");
 	if (!location)
 		glUniform1i(location, data->texture);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	// glEnable(GL_DEPTH_TEST);
 	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	glCullFace(GL_FRONT);
-	glFrontFace(GL_CCW);
+	//glCullFace(GL_FRONT);
+	//glFrontFace(GL_CCW);
 }
 
 void			draw(t_data *data)
@@ -86,7 +105,14 @@ void			draw(t_data *data)
 	glfwSetKeyCallback(data->win_ptr, key_callback);
 	glfwPollEvents ();
 	glBindVertexArray (data->vao);
-	glDrawElements(GL_TRIANGLES, data->size_tab_indice, GL_UNSIGNED_SHORT, (void*)0);
+	glDrawArrays(GL_TRIANGLES, 0, data->size_tab_indice / 6);
+
+	// check OpenGL error
+    for(GLenum err; (err = glGetError()) != GL_NO_ERROR;)
+	{
+	  printf("%u\n", err);
+	}
+
 	glBindVertexArray(0);
 	sendMatrix(data);
 	glfwSwapBuffers(data->win_ptr);

@@ -25,7 +25,7 @@ typedef struct		s_data
 	GLuint			fs;
 	GLuint			shader_programme;
 	GLuint			indice_buffer;
-	GLushort		*indice_tab;
+	GLfloat			*final_buffer_tab;
 	GLfloat			*vertex_tab;
 	int				size_tab_indice;
 	int 			size_tab_vertex;

@@ -1,25 +1,45 @@
 #include "../includes/scop.h"
 
-static void			fillTabF(char *line, t_data *data)
+static void			fillTab(t_data *data, int x, GLfloat color)
 {
-	char			letter;
-	unsigned short	read[2];
 	static int		index = 0;
 
-	read[0] = sscanf(line, "%c %hd %hd %hd %hd", &letter, &(data->indice_tab[index]), &(data->indice_tab[index + 1]), &(data->indice_tab[index + 2]), &read[1]);
-	index += 3;
-	if (read[0] < 4 || letter != 'f')
+	data->final_buffer_tab[index] = data->vertex_tab[x - 1];
+	data->final_buffer_tab[index+1] = data->vertex_tab[x];
+	data->final_buffer_tab[index+2] = data->vertex_tab[x + 1];
+	data->final_buffer_tab[index+3] = color;
+	data->final_buffer_tab[index+4] = color;
+	data->final_buffer_tab[index+5] = color;
+	index += 6;
+}
+
+static void			final_buffer(char *line, t_data *data)
+{
+	char			letter;
+	int				read[4];
+	int				rdn;
+	GLfloat			color[5] = {0.827f, 0.753f, 0.663f, 0.502f, 0.412f};
+	static int 		index_color = 0;
+
+	if (index_color == 4)
+		index_color = 0;
+	rdn = sscanf(line, "%c %d %d %d %d", &letter, &read[0], &read[1], &read[2], &read[3]);
+	if (rdn < 4 || letter != 'f')
 	{
 		printf("Error read: v format\n");
 		exit(0);
 	}
-	else if (read[0] == 5 && letter == 'f')
+	fillTab(data, read[0], color[index_color]);
+	fillTab(data, read[1], color[index_color]);
+	fillTab(data, read[2], color[index_color]);
+	if (rdn == 5 && letter == 'f')
 	{
-		data->indice_tab[index] = data->indice_tab[index - 3];
-		data->indice_tab[index + 1] = data->indice_tab[index - 1];
-		data->indice_tab[index + 2] = read[1];
-		index += 3;
+		fillTab(data, read[0], color[index_color]);
+		fillTab(data, read[2], color[index_color]);
+		fillTab(data, read[3], color[index_color]);
 	}
+	index_color++;
+		
 }
 
 static void		fillTabV(char *line, t_data *data)
@@ -50,7 +70,7 @@ static void		read(FILE *fp, t_data *data)
 		if (linePtr[0] == 'v')
 			fillTabV(linePtr, data);
 		if (linePtr[0] == 'f')
-			fillTabF(linePtr, data);
+			final_buffer(linePtr, data);
 	}
 }
 
@@ -93,20 +113,20 @@ void			parserObj(t_data *data)
 		exit(0);
 	}
 	data->size_tab_vertex = readNbLine(fp, 'v') * 3;
-	data->size_tab_indice = readNbLine(fp, 'f') * 3;
+	data->size_tab_indice = readNbLine(fp, 'f') * 18;
 	printf("size vertex: %d\n", data->size_tab_vertex);
 	printf("size indice: %d\n", data->size_tab_indice);
 	data->vertex_tab = (float*) malloc(sizeof(float) * data->size_tab_vertex);
-	data->indice_tab = (GLushort*) malloc(sizeof(GLushort) * data->size_tab_indice);
+	data->final_buffer_tab = (GLfloat*) malloc(sizeof(GLfloat) * data->size_tab_indice);
 	fclose(fp);
 	fp = fopen(data->fileObj, "r");
 	read(fp, data);
 	fclose(fp);
 	scaleRange(data);
 	// int i = 0;
-	// while (data->vertex_tab[i])
+	// while (data->final_buffer_tab[i])
 	// {
-	// 	printf("%f\n", data->vertex_tab[i]);
+	// 	printf("%f\n", data->final_buffer_tab[i]);
 	// 	i++;
 	// }
 }
