@@ -35,6 +35,9 @@ typedef struct		s_data
 	GLfloat			*viewMatrix;
 	GLfloat			*projectionMatrix;
 	GLuint			texture;
+	float			x[2];
+	float			y[2];
+	float			object_center[2];
 }					t_data;
 
 typedef struct 		s_bmp
@@ -49,7 +52,6 @@ typedef struct 		s_bmp
 }				t_bmp;
 
 extern GLfloat		g_modelMatrix[];
-//extern GLfloat		g_viewMatrix[];
 
 
 

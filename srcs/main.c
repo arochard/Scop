@@ -1,10 +1,10 @@
 #include "../includes/scop.h"
 
 GLfloat				g_modelMatrix[16] = 		{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 2.0f, 1.0};
-// GLfloat				g_viewMatrix[16] = 			{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, -0.0, -0.0, 2.0f, 1.0};
 
 int			main(int argc, char **argv)
 {
+	
 	t_data		data;
 
 	data.width = 1920;

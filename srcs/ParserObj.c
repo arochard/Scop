@@ -4,9 +4,9 @@ static void			fillTab(t_data *data, int x, GLfloat color)
 {
 	static int		index = 0;
 
-	data->final_buffer_tab[index] = data->vertex_tab[x - 1];
-	data->final_buffer_tab[index+1] = data->vertex_tab[x];
-	data->final_buffer_tab[index+2] = data->vertex_tab[x + 1];
+	data->final_buffer_tab[index] = data->vertex_tab[(x * 3) - 3];
+	data->final_buffer_tab[index+1] = data->vertex_tab[(x * 3) - 2];
+	data->final_buffer_tab[index+2] = data->vertex_tab[(x * 3) - 1];
 	data->final_buffer_tab[index+3] = color;
 	data->final_buffer_tab[index+4] = color;
 	data->final_buffer_tab[index+5] = color;
@@ -42,13 +42,25 @@ static void			final_buffer(char *line, t_data *data)
 		
 }
 
-static void		fillTabV(char *line, t_data *data)
+static void			fillTabV(char *line, t_data *data)
 {
-	char		letter;
-	int			read;
-	static int	index = 0;
-
+	char			letter;
+	int				read;
+	static int		index = 0;
+	
+	data->x[0] = 0.0f;
+	data->x[1] = 0.0f;
+	data->y[0] = 0.0f;
+	data->y[1] = 0.0f;
 	read = sscanf(line, "%c %f %f %f", &letter, &(data->vertex_tab[index]), &(data->vertex_tab[index + 1]), &(data->vertex_tab[index + 2]));
+	if (data->vertex_tab[index] < data->x[0])
+		data->x[0] = data->vertex_tab[index];
+	if (data->vertex_tab[index] > data->x[1])
+		data->x[1] = data->vertex_tab[index];
+	if (data->vertex_tab[index + 1] < data->y[0])
+		data->y[0] = data->vertex_tab[index + 1];
+	if (data->vertex_tab[index + 1] > data->y[1])
+		data->y[1] = data->vertex_tab[index + 1];
 	index += 3;
 	if (read != 4 || letter != 'v')
 	{
@@ -57,11 +69,11 @@ static void		fillTabV(char *line, t_data *data)
 	}
 }
 
-static void		read(FILE *fp, t_data *data)
+static void			read(FILE *fp, t_data *data)
 {
-	size_t		buffer;
-	char		*linePtr;
-	int 		flag;
+	size_t			buffer;
+	char			*linePtr;
+	int 			flag;
 
 	flag = 0;
 	buffer = 256;
@@ -74,13 +86,13 @@ static void		read(FILE *fp, t_data *data)
 	}
 }
 
-static int		readNbLine(FILE *fp, char del)
+static int			readNbLine(FILE *fp, char del)
 {
-	size_t		buffer;
-	char		*linePtr;
-	int			countLine;
-	int			read[5];
-	char		letter;
+	size_t			buffer;
+	char			*linePtr;
+	int				countLine;
+	int				read[5];
+	char			letter;
 
 	countLine = 0;
 	buffer = 128;
@@ -98,13 +110,12 @@ static int		readNbLine(FILE *fp, char del)
 		}
 	}
 	rewind(fp);
-	printf("count line%d\n", countLine);
 	return (countLine);
 }
 
-void			parserObj(t_data *data)
+void				parserObj(t_data *data)
 {
-	FILE		*fp;
+	FILE			*fp;
 
 	fp = fopen(data->fileObj, "r");
 	if (fp == NULL)
@@ -114,8 +125,6 @@ void			parserObj(t_data *data)
 	}
 	data->size_tab_vertex = readNbLine(fp, 'v') * 3;
 	data->size_tab_indice = readNbLine(fp, 'f') * 18;
-	printf("size vertex: %d\n", data->size_tab_vertex);
-	printf("size indice: %d\n", data->size_tab_indice);
 	data->vertex_tab = (float*) malloc(sizeof(float) * data->size_tab_vertex);
 	data->final_buffer_tab = (GLfloat*) malloc(sizeof(GLfloat) * data->size_tab_indice);
 	fclose(fp);
@@ -123,10 +132,4 @@ void			parserObj(t_data *data)
 	read(fp, data);
 	fclose(fp);
 	scaleRange(data);
-	// int i = 0;
-	// while (data->final_buffer_tab[i])
-	// {
-	// 	printf("%f\n", data->final_buffer_tab[i]);
-	// 	i++;
-	// }
 }
