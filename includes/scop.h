@@ -37,7 +37,8 @@ typedef struct		s_data
 	GLuint			texture;
 	float			x[2];
 	float			y[2];
-	float			object_center[2];
+	float			z[2];
+	float			object_center[3];
 }					t_data;
 
 typedef struct 		s_bmp

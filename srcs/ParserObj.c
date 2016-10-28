@@ -48,10 +48,6 @@ static void			fillTabV(char *line, t_data *data)
 	int				read;
 	static int		index = 0;
 	
-	data->x[0] = 0.0f;
-	data->x[1] = 0.0f;
-	data->y[0] = 0.0f;
-	data->y[1] = 0.0f;
 	read = sscanf(line, "%c %f %f %f", &letter, &(data->vertex_tab[index]), &(data->vertex_tab[index + 1]), &(data->vertex_tab[index + 2]));
 	if (data->vertex_tab[index] < data->x[0])
 		data->x[0] = data->vertex_tab[index];
@@ -61,6 +57,10 @@ static void			fillTabV(char *line, t_data *data)
 		data->y[0] = data->vertex_tab[index + 1];
 	if (data->vertex_tab[index + 1] > data->y[1])
 		data->y[1] = data->vertex_tab[index + 1];
+	if (data->vertex_tab[index + 2] < data->z[0])
+		data->z[0] = data->vertex_tab[index + 2];
+	if (data->vertex_tab[index + 2] > data->z[1])
+		data->z[1] = data->vertex_tab[index + 2];
 	index += 3;
 	if (read != 4 || letter != 'v')
 	{
@@ -117,6 +117,12 @@ void				parserObj(t_data *data)
 {
 	FILE			*fp;
 
+	data->x[0] = 0.0f;
+	data->x[1] = 0.0f;
+	data->y[0] = 0.0f;
+	data->y[1] = 0.0f;
+	data->z[0] = 0.0f;
+	data->z[1] = 0.0f;
 	fp = fopen(data->fileObj, "r");
 	if (fp == NULL)
 	{

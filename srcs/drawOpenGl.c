@@ -1,9 +1,9 @@
 #include "../includes/scop.h"
 
-static void		sendMatrix(t_data *data)
+static void			sendMatrix(t_data *data)
 {
-	GLuint		location;
-	static double		angle = 0.0;
+	GLuint			location;
+	static double	angle = 0.0;
 
 	g_modelMatrix[0] = cos(angle);
 	g_modelMatrix[8] = -sin(angle);
@@ -73,11 +73,14 @@ void			loading_buffer(t_data *data)
 	location = glGetUniformLocation(data->shader_programme, "myTexture");
 	if (!location)
 		glUniform1i(location, data->texture);
-	//glEnable(GL_CULL_FACE);
+	// glEnable(GL_CULL_FACE);
 	// glEnable(GL_DEPTH_TEST);
+	// glDepthFunc(GL_LESS);
 	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	glCullFace(GL_FRONT);
+	// glCullFace(GL_FRONT);
 	//glFrontFace(GL_CCW);
+	// glDisable(GL_BLEND);
+
     
 	create_shaders(data);
 }
@@ -85,7 +88,7 @@ void			loading_buffer(t_data *data)
 void			draw(t_data *data)
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glClearColor(0.9, 0.9, 0.9, 1.0);
+	glClearColor(0.9, 0.9, 0.9, 1.0);
 	glViewport (0, 0, data->width, data->height);
 	glfwSetKeyCallback(data->win_ptr, key_callback);
 	glfwPollEvents ();
