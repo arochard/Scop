@@ -15,21 +15,6 @@ static void			min_max(t_data *data, float *min, float *max)
 	}
 }
 
-// static	void		min_max_coord(float *x, float *y, float *z)
-// {
-// 	int				i;
-
-// 	i = 0;
-// 	while (data->vertex_tab[i])
-// 	{
-// 		if (data->vertex_tab[i] > *max)
-// 			*max = data->vertex_tab[i];
-// 		if (data->vertex_tab[i] < *min)
-// 			*min = data->vertex_tab[i];
-// 		i++;
-// 	}
-// }
-
 void				scaleRange(t_data *data)
 {
 	int				i;

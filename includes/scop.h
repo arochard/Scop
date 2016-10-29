@@ -39,6 +39,8 @@ typedef struct		s_data
 	float			y[2];
 	float			z[2];
 	float			object_center[3];
+	GLuint			loc_mat;
+	GLuint			loc_pct;
 }					t_data;
 
 typedef struct 		s_bmp
@@ -53,6 +55,7 @@ typedef struct 		s_bmp
 }				t_bmp;
 
 extern GLfloat		g_modelMatrix[];
+extern int 			g_is_texture;
 
 
 
