@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arochard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/10/31 20:40:58 by arochard          #+#    #+#             */
+/*   Updated: 2016/10/31 20:40:59 by arochard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/scop.h"
 
 void			read_shaders(const char **str, char *file)
 {
 	FILE		*fp;
-	long 		fsize;
+	long		fsize;
 	char		*tmp;
 
 	fp = fopen(file, "r");
@@ -24,24 +36,25 @@ void			read_shaders(const char **str, char *file)
 
 void			init_window(t_data *data)
 {
-	if (!glfwInit ())
+	if (!glfwInit())
 	{
-		fprintf (stderr, "ERROR: could not start GLFW3\n");
+		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		exit(0);
 	}
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_DEPTH_BITS, 24);
-	data->win_ptr = glfwCreateWindow (data->width, data->height, "Scop", NULL, NULL);
+	data->win_ptr = glfwCreateWindow(data->width,
+		data->height, "Scop", NULL, NULL);
 	if (!data->win_ptr)
 	{
-		fprintf (stderr, "ERROR: could not open window with GLFW3\n");
+		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
 		glfwTerminate();
 		exit(0);
 	}
-	glfwMakeContextCurrent (data->win_ptr);
+	glfwMakeContextCurrent(data->win_ptr);
 	glewExperimental = GL_TRUE;
-	glewInit ();
+	glewInit();
 }

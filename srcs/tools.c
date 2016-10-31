@@ -1,51 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arochard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/10/31 20:41:36 by arochard          #+#    #+#             */
+/*   Updated: 2016/10/31 20:41:37 by arochard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/scop.h"
 
-static void			min_max(t_data *data, float *min, float *max)
+static void			m_m(t_data *data, float *min_max, float *min_max_z)
 {
 	int				i;
 
-	i = 0;
-	while (data->vertex_tab[i])
-	{
-		if (data->vertex_tab[i] > *max)
-			*max = data->vertex_tab[i];
-		if (data->vertex_tab[i] < *min)
-			*min = data->vertex_tab[i];
-		i++;
-	}
-}
-
-void				scaleRange(t_data *data)
-{
-	int				i;
-	float			max;
-	float			min;
-
-	min = 0.0f;
-	max = 0.0f;
-	min_max(data, &min, &max);
-	data->object_center[0] = (data->x[0] + data->x[1]) / 2;
-	data->object_center[1] = (data->y[0] + data->y[1]) / 2;
-	data->object_center[2] = (data->z[0] + data->z[1]) / 2;
-	printf("x min = %f  x max = %f\n", data->x[0], data->x[1]);
-	printf("y min = %f  y max = %f\n", data->y[0], data->y[1]);
-	printf("z min = %f  z max = %f\n", data->z[0], data->z[1]);
-	printf("min = %f, max = %f ; center x = %f y = %f z = %f\n", min, max, data->object_center[0], data->object_center[1], data->object_center[2]);
 	i = 0;
 	while (data->final_buffer_tab[i])
 	{
-		data->final_buffer_tab[i] -= data->object_center[0];
-		data->final_buffer_tab[i + 1] -= data->object_center[1];
-		data->final_buffer_tab[i + 2] -= data->object_center[2];
-
-		// data->final_buffer_tab[i] = (data->final_buffer_tab[i] - min) / (max - min);
-		// data->final_buffer_tab[i + 1] = (data->final_buffer_tab[i + 1] - min) / (max - min);
-		// data->final_buffer_tab[i + 2] = (data->final_buffer_tab[i + 2] - min) / (max - min);
-
-		// data->final_buffer_tab[i] = (((data->final_buffer_tab[i] - min)) * (1 - -1) / (max - min)) + min;
-		// data->final_buffer_tab[i + 1] = (((data->final_buffer_tab[i + 1] - min)) * (1 - -1) / (max - min)) + min;
-		// data->final_buffer_tab[i + 2] = (((data->final_buffer_tab[i + 2] - min)) * (1 - -1) / (max - min)) + min;
-
+		data->final_buffer_tab[i] -= (data->x[0] + data->x[1]) / 2;
+		data->final_buffer_tab[i + 1] -= (data->y[0] + data->y[1]) / 2;
+		data->final_buffer_tab[i + 2] -= (data->z[0] + data->z[1]) / 2;
+		data->final_buffer_tab[i] = (((data->final_buffer_tab[i] - min_max[0]))
+			* (1 - -1) / (min_max[1] - min_max[0])) + min_max[0];
+		data->final_buffer_tab[i + 1] = (((data->final_buffer_tab[i + 1]
+			- min_max[0])) * (1 - -1) / (min_max[1] - min_max[0])) + min_max[0];
+		data->final_buffer_tab[i + 2] = (((data->final_buffer_tab[i + 2]
+			- min_max_z[0])) * (1 - -1) / (min_max_z[1] - min_max_z[0]))
+			+ min_max_z[0];
 		i += 6;
 	}
+}
+
+void				scale_range(t_data *data)
+{
+	int				i;
+	float			min_max[2];
+	float			min_max_z[2];
+
+	min_max[0] = 0.0f;
+	min_max[1] = 0.0f;
+	min_max_z[0] = 0.0f;
+	min_max_z[1] = 0.0f;
+	i = 0;
+	while (data->v_tab[i])
+	{
+		if (data->v_tab[i] > min_max[1])
+			min_max[1] = data->v_tab[i];
+		if (data->v_tab[i] < min_max[0])
+			min_max[0] = data->v_tab[i];
+		if (data->v_tab[i + 1] > min_max[1])
+			min_max[1] = data->v_tab[i + 1];
+		if (data->v_tab[i + 1] < min_max[0])
+			min_max[0] = data->v_tab[i + 1];
+		if (data->v_tab[i + 2] > min_max_z[1])
+			min_max_z[1] = data->v_tab[i + 2];
+		if (data->v_tab[i + 2] < min_max_z[0])
+			min_max_z[0] = data->v_tab[i + 2];
+		i += 3;
+	}
+	m_m(data, min_max, min_max_z);
 }
