@@ -84,6 +84,9 @@ void				loading_buffer(t_data *data)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glViewport(0, 0, data->width, data->height);
+	glDepthRangef(0.5, 5);
 	create_shaders(data);
 }
 
@@ -91,7 +94,6 @@ void				draw(t_data *data)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glViewport(0, 0, data->width, data->height);
 	glfwSetKeyCallback(data->win_ptr, key_callback);
 	glfwPollEvents();
 	glUseProgram(data->shader_programme);
