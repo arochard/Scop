@@ -16,7 +16,7 @@ GLfloat				g_model_matrix[16] = {
 	1.0, 0.0, 0.0, 0.0,
 	0.0, 1.0, 0.0, 0.0,
 	0.0, 0.0, 1.0, 0.0,
-	0.0, 0.0, 2.0f, 1.0};
+	0.0, 0.0, 3.0f, 1.0};
 int					g_is_texture = 0;
 
 static void			parser_obj(t_data *data)

@@ -22,7 +22,7 @@ mat4 perspective(float angle_of_view, float aspect_ratio, float z_near, float z_
 void main ()
 {
     Color = color;
-	vec4 eyepos = perspective(radians(45), 1920/1080, 0, 100)  * modelMatrix * vec4(position, 1.0);
+	vec4 eyepos = perspective(radians(45), 1920/1080, -1, 1)  * modelMatrix * vec4(position, 1.0);
 	gl_Position = vec4(eyepos.xy, -eyepos.z, eyepos.w);
 	texCoord = position.xy;
 }

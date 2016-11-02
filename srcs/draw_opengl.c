@@ -86,7 +86,6 @@ void				loading_buffer(t_data *data)
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glViewport(0, 0, data->width, data->height);
-	glDepthRangef(0.5, 5);
 	create_shaders(data);
 }
 
